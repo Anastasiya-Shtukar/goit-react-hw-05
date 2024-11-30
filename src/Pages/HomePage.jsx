@@ -1,7 +1,7 @@
 import { fetchTreding } from "../movieApi/MovieApi";
 import { useState, useEffect } from "react";
 
-export default function Home() {
+const useHome = () => {
   const [tredingList, setTredingList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -14,7 +14,7 @@ export default function Home() {
 
         setTredingList(treding);
       } catch (error) {
-        setError(true);
+        setError(error);
         console.error(error);
       } finally {
         setLoading(false);
@@ -22,16 +22,28 @@ export default function Home() {
     }
     tredingMovie();
   }, []);
+  return {
+    tredingList,
+    loading,
+    error,
+  };
+};
+
+export default function Home() {
+  const { tredingList, loading, error } = useHome();
 
   return (
-    <>
-      {loading && <p>Loading...</p>}
-      {error && <p>Oops, something went wrong, please try again...</p>}
-      <ul>
-        {tredingList.map((tred) => {
-          <li key={tred.id}>vrgisvi</li>;
-        })}
-      </ul>
-    </>
+    console.log(tredingList),
+    (
+      <>
+        {loading && <p>Loading...</p>}
+        {error && <p>Oops, something went wrong, please try again...</p>}
+        <ul>
+          {tredingList.map((tred) => {
+            <li key={tred.id}>{tred.title}</li>;
+          })}
+        </ul>
+      </>
+    )
   );
 }
