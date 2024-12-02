@@ -13,13 +13,47 @@ export const fetchTreding = async () => {
 };
 
 export const fetchDetails = async (id) => {
+  const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}`, {
+    params: {
+      api_key: API_KEY,
+    },
+  });
+  return response.data;
+};
+
+export const fetchCast = async (id) => {
   const response = await axios.get(
-    `"https://api.themoviedb.org/3/movie/${id}"`,
+    `https://api.themoviedb.org/3/movie/${id}/credits`,
     {
       params: {
         api_key: API_KEY,
       },
     }
   );
-  return response.data;
+  return response.data.cast;
+};
+
+export const fetchReviews = async (id) => {
+  const response = await axios.get(
+    `https://api.themoviedb.org/3/movie/${id}/reviews`,
+    {
+      params: {
+        api_key: API_KEY,
+      },
+    }
+  );
+  return response.data.results;
+};
+
+export const fetchSearch = async (query) => {
+  const response = await axios.get(
+    `https://api.themoviedb.org/3/search/movie`,
+    {
+      params: {
+        api_key: API_KEY,
+        query: query,
+      },
+    }
+  );
+  return response.data.results;
 };
