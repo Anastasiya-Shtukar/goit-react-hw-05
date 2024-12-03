@@ -1,4 +1,4 @@
-import { fetchTreding } from "../movieApi/MovieApi";
+import { fetchTreding } from "../MovieApi/MovieApi";
 import { useState, useEffect } from "react";
 
 const useHome = () => {
