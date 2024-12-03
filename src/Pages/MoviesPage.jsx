@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import MovieList from "../components/MovieList";
 import { fetchSearch } from "../movieApi/MovieApi";
 import { useLocation } from "react-router-dom";
+import css from "./MoviesPage.module.css";
 
 export default function Movies() {
   const [movies, setMovies] = useState([]);
@@ -19,6 +20,7 @@ export default function Movies() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
+
     setSearchParams({ query: form.elements.query.value });
     form.reset();
   };
@@ -30,7 +32,12 @@ export default function Movies() {
         <input type="text" name="query" placeholder="Search movies..." />
         <button type="submit">Search</button>
       </form>
-      <MovieList movies={movies} location={location} />
+
+      {movies.length > 0 ? (
+        <MovieList movies={movies} location={location} />
+      ) : (
+        <p className={css.notMovie}>Sorry, we don't have that movie.</p>
+      )}
     </div>
   );
 }

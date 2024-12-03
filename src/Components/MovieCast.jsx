@@ -1,4 +1,4 @@
-import { useLocation, useParams, Link, Outlet } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useFunction from "../Hooks/UseFunction.jsx";
 import { fetchCast } from "../movieApi/MovieApi.js";
 import css from "./MovieCast.module.css";

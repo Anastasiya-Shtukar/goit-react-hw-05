@@ -3,7 +3,7 @@ import { useLocation, useParams, Link, Outlet } from "react-router-dom";
 import useFunction from "../Hooks/UseFunction.jsx";
 import css from "./MovieDetailsPage.module.css";
 import { IoArrowBackOutline } from "react-icons/io5";
-import { fetchDetails } from "../movieApi/MovieApi.js";
+import { fetchDetails } from "../MovieApi/MovieApi.js";
 
 export default function MovieDetails() {
   const { movieId } = useParams();
@@ -13,6 +13,8 @@ export default function MovieDetails() {
   const imageUrl = movieState.poster_path
     ? `https://image.tmdb.org/t/p/w500${movieState.poster_path}`
     : "https://via.placeholder.com/500";
+
+  const genres = movieState.genres;
 
   const popularity = movieState.vote_average * 10;
 
@@ -33,6 +35,14 @@ export default function MovieDetails() {
             <p>User Score: {popularity} %</p>
             <h2>Overview</h2>
             <p>{movieState.overview}</p>
+            <h2>Genres</h2>
+            {genres && (
+              <ul className={css.ulGenres}>
+                {genres.map((gen) => (
+                  <li key={gen.id}>{gen.name}</li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
         <div>

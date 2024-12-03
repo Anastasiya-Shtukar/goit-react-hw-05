@@ -48,3 +48,9 @@
   padding: 20px;
   font-weight: 700;
 }
+
+.ulGenres {
+  display: flex;
+  list-style-type: none;
+  gap: 15px;
+}
