@@ -1,7 +1,7 @@
 import useHome from "../Hooks/UseHome";
 import { useLocation } from "react-router-dom";
 import css from "./HomePage.module.css";
-import MovieList from "../components/MovieList";
+import MovieList from "../Components/MovieList";
 
 export default function Home() {
   const { tredingList, loading, error } = useHome();

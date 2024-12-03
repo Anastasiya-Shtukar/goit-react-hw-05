@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import useFunction from "../Hooks/UseFunction.jsx";
-import { fetchReviews } from "../movieApi/MovieApi.js";
+import { fetchReviews } from "../MovieApi/MovieApi.js";
 import css from "./MovieReviews.module.css";
 
 export default function MovieCast() {
