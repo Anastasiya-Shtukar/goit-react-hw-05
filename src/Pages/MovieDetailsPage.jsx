@@ -1,5 +1,11 @@
 import { Suspense } from "react";
-import { useLocation, useParams, Link, Outlet } from "react-router-dom";
+import {
+  useLocation,
+  useParams,
+  Link,
+  Outlet,
+  useNavigate,
+} from "react-router-dom";
 import useFunction from "../Hooks/UseFunction.jsx";
 import css from "./MovieDetailsPage.module.css";
 import { IoArrowBackOutline } from "react-icons/io5";
@@ -9,6 +15,7 @@ export default function MovieDetails() {
   const { movieId } = useParams();
   const { movieState, loading, error } = useFunction(movieId, fetchDetails);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const imageUrl = movieState.poster_path
     ? `https://image.tmdb.org/t/p/w500${movieState.poster_path}`
@@ -17,15 +24,18 @@ export default function MovieDetails() {
   const genres = movieState.genres;
 
   const popularity = movieState.vote_average * 10;
+  const handleBack = () => {
+    navigate(`/movies${location.state.from.search}`);
+  };
 
   return (
-    console.log(location.state),
+    console.log(location),
     (
       <main className={css.main}>
-        <Link to={location.state} className={css.back}>
+        <button onClick={handleBack} className={css.back}>
           <IoArrowBackOutline />
           Go back
-        </Link>
+        </button>
         {loading && <p>loading...</p>}
         {error && <p>Oops, something went wrong, please try again...</p>}
         <div className={css.details}>
@@ -49,12 +59,16 @@ export default function MovieDetails() {
           <p className={css.p_info}>Additional information:</p>
           <ul>
             <li>
-              <Link to="cast" className={css.link}>
+              <Link to="cast" state={{ from: location }} className={css.link}>
                 Cast
               </Link>
             </li>
             <li>
-              <Link to="reviews" className={css.link}>
+              <Link
+                to="reviews"
+                state={{ from: location }}
+                className={css.link}
+              >
                 Reviews
               </Link>
             </li>
